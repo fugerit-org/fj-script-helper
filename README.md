@@ -31,7 +31,10 @@ This project provides just a convenient interface for evaluating scripts with ja
 Sample code : 
 
 ```java
-EvalScript evalKts = new EvalScriptWithJsonDataModel( "kts" );
+// this will create a EvalScript instance for : 
+// kotlin script engine (kts)
+// data model will be bound as "data" (if not provided this is the default binding name)
+EvalScript evalKts = new EvalScriptWithDataModel( "kts", "data" );
 try (Reader reader = [reader on kotlin script]) {
     Map<String, Object> dataModel = new HashMap<>();
     dataModel.put( "docTitle", "My custom title" );
@@ -39,3 +42,12 @@ try (Reader reader = [reader on kotlin script]) {
     log.info( "my result : {}", result );
 }
 ```
+
+It is possible to wrap the EvalScript with some decorators, for instance : 
+
+```java
+EvalScript evalKts = EvalScriptWithJsonDataModel( new EvalScriptWithDataModel( "kts", "data" ) );
+```
+
+Will wraps the EvalScript with EvalScriptWithJsonDataModel decorator.
+EvalScriptWithJsonDataModel will transform a Map data model to a json data model style.

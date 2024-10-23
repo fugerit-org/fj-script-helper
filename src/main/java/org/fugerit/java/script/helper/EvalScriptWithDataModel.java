@@ -12,6 +12,14 @@ import java.io.Reader;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * Simple implementation of EvalScript.
+ *
+ * It relies on extension based ScriptEngine (ScriptEngineManager.getEngineByExtension( this.scriptExtension ))
+ *
+ * Data model binding name can be customized, default is 'data'.
+ *
+ */
 @Slf4j
 public class EvalScriptWithDataModel implements EvalScript {
 
@@ -21,12 +29,23 @@ public class EvalScriptWithDataModel implements EvalScript {
 
     private String dataModelBindingName;
 
+    /**
+     * It will create a EvalScriptWithDataModel
+     *
+     * @param scriptExtension           the extension to be used for the ScriptEngine
+     * @param dataModelBindingName      the data model binding name
+     */
     public EvalScriptWithDataModel(String scriptExtension, String dataModelBindingName) {
         this.scriptExtension = scriptExtension;
         this.dataModelBindingName = dataModelBindingName;
         log.debug( "use scriptExtension : [{}], use dataModelBindingName : [{}]s", scriptExtension, dataModelBindingName );
     }
 
+    /**
+     * It will create a EvalScriptWithDataModel with the default data model binding name.
+     *
+     * @param scriptExtension           the extension to be used for the ScriptEngine
+     */
     public EvalScriptWithDataModel(String scriptExtension) {
         this( scriptExtension, DEFAULT_DATA_MODEL_BINDING_NAME );
     }
