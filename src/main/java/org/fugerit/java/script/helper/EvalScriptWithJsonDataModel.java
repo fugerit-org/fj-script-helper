@@ -18,36 +18,28 @@ public class EvalScriptWithJsonDataModel implements EvalScript {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
-    private String scriptExtension;
+    private EvalScript evalScript;
 
-    public EvalScriptWithJsonDataModel(String scriptExtension) {
-        this.scriptExtension = scriptExtension;
-        log.debug( "use script extension [{}]", scriptExtension );
+    public EvalScriptWithJsonDataModel(EvalScript evalScript) {
+        this.evalScript = evalScript;
     }
 
     @Override
-    public Object evalKtsEx(Reader reader, Map<String, Object> dataModel) throws ScriptException {
-        try {
-            SimpleCheckpoint checkpoint = new SimpleCheckpoint();
-            ScriptEngineManager manager = new ScriptEngineManager();
-            log.debug( "kts create script manager : {}", checkpoint.getFormatTimeDiffMillis() );
-            ScriptEngine engine =  manager.getEngineByExtension( this.scriptExtension );
-            log.debug( "kts create script engine : {}", checkpoint.getFormatTimeDiffMillis() );
-            if ( dataModel != null ) {
-                Bindings bindings = engine.createBindings();
-                log.debug( "kts create script bindings : {}", checkpoint.getFormatTimeDiffMillis() );
-                LinkedHashMap<String, Object> data = MAPPER.convertValue( dataModel, LinkedHashMap.class );
-                log.debug( "kts read json data : {}", checkpoint.getFormatTimeDiffMillis() );
-                bindings.put( "data", data );
-                engine.setBindings( bindings, ScriptContext.ENGINE_SCOPE );
-            }
-            log.debug( "kts set bindings : {}", checkpoint.getFormatTimeDiffMillis() );
-            Object obj = engine.eval( StreamIO.readString( reader ) );
-            log.debug( "kts eval script : {}", checkpoint.getFormatTimeDiffMillis() );
-            return obj;
-        } catch (Exception e) {
-            throw new ScriptException( String.format( "Exception running evalKts %s", e ) ,e);
+    public Object handleEx(Reader reader, Map<String, Object> dataModel) throws ScriptException {
+        if ( dataModel != null ) {
+            LinkedHashMap<String, Object> data = MAPPER.convertValue( dataModel, LinkedHashMap.class );
+            return evalScript.handleEx( reader, data );
+        } else {
+            return evalScript.handleEx( reader );
         }
+    }
+
+    public static EvalScript newEvalScriptWithJsonDataModel( String scriptExtension, String dataModelBindingName ) {
+        return new EvalScriptWithJsonDataModel( new EvalScriptWithDataModel( scriptExtension, dataModelBindingName ) );
+    }
+
+    public static EvalScript newEvalScriptWithJsonDataModel( String scriptExtension ) {
+        return new EvalScriptWithJsonDataModel( new EvalScriptWithDataModel( scriptExtension ) );
     }
 
 }

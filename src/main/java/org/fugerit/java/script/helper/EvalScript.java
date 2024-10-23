@@ -7,18 +7,18 @@ import java.util.Map;
 
 public interface EvalScript {
 
-    default Object evalKts(Reader reader, Map<String, Object> dataModel) {
-        return SafeFunction.get( () -> evalKtsEx(reader, dataModel) );
+    default Object handle(Reader reader, Map<String, Object> dataModel) {
+        return SafeFunction.get( () -> handleEx(reader, dataModel) );
     }
 
-    default Object evalKts(Reader reader) {
-        return evalKts(reader, null);
+    default Object handle(Reader reader) {
+        return handle(reader, null);
     }
 
-    Object evalKtsEx(Reader reader, Map<String, Object> dataModel) throws ScriptException;
+    Object handleEx(Reader reader, Map<String, Object> dataModel) throws ScriptException;
 
-    default Object evalKtsEx(Reader reader) throws ScriptException {
-        return evalKtsEx(reader, null);
+    default Object handleEx(Reader reader) throws ScriptException {
+        return handleEx(reader, null);
     }
 
 }
