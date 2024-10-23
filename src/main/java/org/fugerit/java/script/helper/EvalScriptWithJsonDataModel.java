@@ -2,13 +2,7 @@ package org.fugerit.java.script.helper;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.fugerit.java.core.io.StreamIO;
-import org.fugerit.java.core.util.checkpoint.SimpleCheckpoint;
 
-import javax.script.Bindings;
-import javax.script.ScriptContext;
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
 import java.io.Reader;
 import java.util.LinkedHashMap;
 import java.util.Map;
