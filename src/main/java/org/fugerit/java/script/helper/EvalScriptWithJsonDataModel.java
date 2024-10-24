@@ -44,7 +44,7 @@ public class EvalScriptWithJsonDataModel implements EvalScript {
          }
          Map<String, Object> dataModel = new HashMap<>();
          dataModel.put( "vehicle", new Vehicle( 10, "AA780BB" ) );
-         LinkedHashMap<String, Object> jsonStyleDataModel = EvalScriptWithJsonDataModel.defaultDataModelConversion( dataModel );
+         Map<String, Object> jsonStyleDataModel = EvalScriptWithJsonDataModel.defaultDataModelConversion( dataModel );
          log.info( "originalDataModel : {}", dataModel );
          log.info( "jsonStyleDataModel : {}", jsonStyleDataModel );
        }
@@ -57,7 +57,7 @@ public class EvalScriptWithJsonDataModel implements EvalScript {
      * @param dataModel     the data model to convert
      * @return              the data model converted to map of simple types
      */
-    public static LinkedHashMap<String, Object> defaultDataModelConversion( Map<String, Object> dataModel ) {
+    public static Map<String, Object> defaultDataModelConversion( Map<String, Object> dataModel ) {
         return MAPPER.convertValue( dataModel, LinkedHashMap.class );
     }
 

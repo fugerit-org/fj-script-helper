@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.0.2] - 2024-10-24
 
+### Fixed
+
+- Changed return type of EvalScriptWithJsonDataModel.defaultDataModelConversion() to generic map [Sona issue S1319](https://sonarcloud.io/organizations/fugerit-org/rules?open=java%3AS1319&rule_key=java%3AS1319).
+
+## [2.0.2] - 2024-10-24
+
 ### Changed
 
 - Added EvalScriptWithJsonDataModel.defaultDataModelConversion() function.

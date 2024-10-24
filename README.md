@@ -78,7 +78,7 @@ class Vehicle {
 }
 Map<String, Object> dataModel = new HashMap<>();
 dataModel.put( "vehicle", new Vehicle( 10, "AA780BB" ) );
-LinkedHashMap<String, Object> jsonStyleDataModel = EvalScriptWithJsonDataModel.defaultDataModelConversion( dataModel );
+Map<String, Object> jsonStyleDataModel = EvalScriptWithJsonDataModel.defaultDataModelConversion( dataModel );
 log.info( "originalDataModel : {}", dataModel );
 log.info( "jsonStyleDataModel : {}", jsonStyleDataModel );
 ```
