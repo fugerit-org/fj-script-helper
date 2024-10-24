@@ -4,6 +4,7 @@ This project provides just a convenient interface for evaluating scripts with ja
 
 [![Keep a Changelog v1.1.0 badge](https://img.shields.io/badge/changelog-Keep%20a%20Changelog%20v1.1.0-%23E05735)](CHANGELOG.md)
 [![Maven Central](https://img.shields.io/maven-central/v/org.fugerit.java/fj-script-helper.svg)](https://central.sonatype.com/artifact/org.fugerit.java/fj-script-helper)
+[![javadoc](https://javadoc.io/badge2/org.fugerit.java/fj-script-helper/javadoc.svg)](https://javadoc.io/doc/org.fugerit.java/fj-script-helper)
 [![license](https://img.shields.io/badge/License-MIT%20License-teal.svg)](https://opensource.org/license/mit)
 [![code of conduct](https://img.shields.io/badge/conduct-Contributor%20Covenant-purple.svg)](https://github.com/fugerit-org/fj-universe/blob/main/CODE_OF_CONDUCT.md)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=fugerit-org_fj-script-helper&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=fugerit-org_fj-script-helper)
@@ -49,5 +50,12 @@ It is possible to wrap the EvalScript with some decorators, for instance :
 EvalScript evalKts = EvalScriptWithJsonDataModel( new EvalScriptWithDataModel( "kts", "data" ) );
 ```
 
-Will wraps the EvalScript with EvalScriptWithJsonDataModel decorator.
-EvalScriptWithJsonDataModel will transform a Map data model to a json data model style.
+Will wrap the EvalScript with EvalScriptWithJsonDataModel decorator.
+EvalScriptWithJsonDataModel will transform a Map data model to a json data model style. Only getter and setter will be considered and made into basic types : 
+
+* String
+* Number
+* Boolean
+* Object as Map
+* Array
+
