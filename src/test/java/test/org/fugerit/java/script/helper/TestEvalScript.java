@@ -1,5 +1,8 @@
 package test.org.fugerit.java.script.helper;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.fugerit.java.core.cfg.ConfigException;
 import org.fugerit.java.core.function.SafeFunction;
@@ -14,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -67,6 +71,30 @@ class TestEvalScript {
     @Test
     void testConstructors() {
         Assertions.assertNotNull( EvalScriptWithJsonDataModel.newEvalScriptWithJsonDataModel( "kts", "custom" ) );
+    }
+
+    @Test
+    void testDataModelConversion() {
+        class Vehicle {
+            private String plate;
+            private int age;
+            public Vehicle(int age, String plate) {
+                this.age = age;
+                this.plate = plate;
+            }
+            public String getPlate() { return plate; }
+            public int getAge() { return age; }
+            @Override
+            public String toString() {
+                return "Vehicle{age="+age+", plate='"+plate+"'}";
+            }
+        }
+        Map<String, Object> dataModel = new HashMap<>();
+        dataModel.put( "vehicle", new Vehicle( 10, "AA780BB" ) );
+        LinkedHashMap<String, Object> jsonStyleDataModel = EvalScriptWithJsonDataModel.defaultDataModelConversion( dataModel );
+        log.info( "originalDataModel : {}", dataModel );
+        log.info( "jsonStyleDataModel : {}", jsonStyleDataModel );
+        Assertions.assertNotNull( jsonStyleDataModel );
     }
 
 }

@@ -59,3 +59,33 @@ EvalScriptWithJsonDataModel will transform a Map data model to a json data model
 * Object as Map
 * Array
 
+For instance this code :
+
+```java
+class Vehicle {
+    private String plate;
+    private int age;
+    public Vehicle(int age, String plate) {
+        this.age = age;
+        this.plate = plate;
+    }
+    public String getPlate() { return plate; }
+    public int getAge() { return age; }
+    @Override
+    public String toString() {
+        return "Vehicle{age="+age+", plate='"+plate+"'}";
+    }
+}
+Map<String, Object> dataModel = new HashMap<>();
+dataModel.put( "vehicle", new Vehicle( 10, "AA780BB" ) );
+LinkedHashMap<String, Object> jsonStyleDataModel = EvalScriptWithJsonDataModel.defaultDataModelConversion( dataModel );
+log.info( "originalDataModel : {}", dataModel );
+log.info( "jsonStyleDataModel : {}", jsonStyleDataModel );
+```
+
+would result in this conversion : 
+
+```text
+originalDataModel : {vehicle=Vehicle{age=10, plate='AA780BB'}}
+jsonStyleDataModel : {vehicle={plate=AA780BB, age=10}}
+```

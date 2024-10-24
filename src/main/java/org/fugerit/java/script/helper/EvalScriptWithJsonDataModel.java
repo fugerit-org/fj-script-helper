@@ -20,6 +20,48 @@ public class EvalScriptWithJsonDataModel implements EvalScript {
     private EvalScript evalScript;
 
     /**
+     * Default data model conversion
+     *
+     *  Only basic types will be used : String, Number, Boolean, Array, Object as Map.
+     *
+     *  For instance the object :
+     *
+     *  <pre>
+     * {@code
+          class Vehicle {
+             private String plate;
+             private int age;
+             public Vehicle(int age, String plate) {
+                 this.age = age;
+                 this.plate = plate;
+            }
+             public String getPlate() { return plate; }
+             public int getAge() { return age; }
+             @Override
+             public String toString() {
+                return "Vehicle{age="+age+", plate='"+plate+"'}";
+             }
+         }
+         Map&lt;String, Object&gt; dataModel = new HashMap<>();
+         dataModel.put( "vehicle", new Vehicle( 10, "AA780BB" ) );
+         LinkedHashMap&lt;String, Object&gt; jsonStyleDataModel = EvalScriptWithJsonDataModel.defaultDataModelConversion( dataModel );
+         log.info( "originalDataModel : {}", dataModel );
+         log.info( "jsonStyleDataModel : {}", jsonStyleDataModel );
+       }
+     * </pre>
+     *
+     * will result in :
+     * originalDataModel : {vehicle=Vehicle{age=10, plate='AA780BB'}}
+     * jsonStyleDataModel : {vehicle={plate=AA780BB, age=10}}
+     *
+     * @param dataModel     the data model to convert
+     * @return              the data model converted to map of simple types
+     */
+    public static LinkedHashMap<String, Object> defaultDataModelConversion( Map<String, Object> dataModel ) {
+        return MAPPER.convertValue( dataModel, LinkedHashMap.class );
+    }
+
+    /**
      * Add decoration to a give EvalScript
      *
      * @param evalScript    the EvalScript instance to decorate
@@ -32,8 +74,7 @@ public class EvalScriptWithJsonDataModel implements EvalScript {
     @Override
     public Object handleEx(Reader reader, Map<String, Object> dataModel) throws ScriptException {
         if ( dataModel != null ) {
-            LinkedHashMap<String, Object> data = MAPPER.convertValue( dataModel, LinkedHashMap.class );
-            return evalScript.handleEx( reader, data );
+            return evalScript.handleEx( reader, defaultDataModelConversion( dataModel ) );
         } else {
             return evalScript.handleEx( reader );
         }
