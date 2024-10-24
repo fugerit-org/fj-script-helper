@@ -42,9 +42,9 @@ public class EvalScriptWithJsonDataModel implements EvalScript {
                 return "Vehicle{age="+age+", plate='"+plate+"'}";
              }
          }
-         Map&lt;String, Object&gt; dataModel = new HashMap<>();
+         Map<String, Object> dataModel = new HashMap<>();
          dataModel.put( "vehicle", new Vehicle( 10, "AA780BB" ) );
-         LinkedHashMap&lt;String, Object&gt; jsonStyleDataModel = EvalScriptWithJsonDataModel.defaultDataModelConversion( dataModel );
+         LinkedHashMap<String, Object> jsonStyleDataModel = EvalScriptWithJsonDataModel.defaultDataModelConversion( dataModel );
          log.info( "originalDataModel : {}", dataModel );
          log.info( "jsonStyleDataModel : {}", jsonStyleDataModel );
        }
