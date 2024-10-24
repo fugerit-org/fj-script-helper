@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Minor changes in logging and exception messaging
+- javadoc documentation
+
 ## [2.0.0] - 2024-10-23
 
 ### Changed

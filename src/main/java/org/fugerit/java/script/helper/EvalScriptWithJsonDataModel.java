@@ -26,6 +26,7 @@ public class EvalScriptWithJsonDataModel implements EvalScript {
      */
     public EvalScriptWithJsonDataModel(EvalScript evalScript) {
         this.evalScript = evalScript;
+        log.debug( "decorator for {}", evalScript );
     }
 
     @Override

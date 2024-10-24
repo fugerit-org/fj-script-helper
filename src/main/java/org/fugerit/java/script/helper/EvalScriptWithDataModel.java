@@ -69,7 +69,7 @@ public class EvalScriptWithDataModel implements EvalScript {
             log.debug( "{} eval script : {}", this.scriptExtension, checkpoint.getFormatTimeDiffMillis() );
             return obj;
         } catch (Exception e) {
-            throw new ScriptException( String.format( "Exception running evalKts %s", e ) ,e);
+            throw new ScriptException( String.format( "Exception running handleEx %s", e ) ,e);
         }
     }
 
