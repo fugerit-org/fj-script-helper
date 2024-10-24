@@ -23,6 +23,9 @@ import java.util.Map;
 @Slf4j
 public class EvalScriptWithDataModel implements EvalScript {
 
+    /**
+     * Default name for data model binding in script engine.
+     */
     public static final String DEFAULT_DATA_MODEL_BINDING_NAME = "data";
 
     private String scriptExtension;

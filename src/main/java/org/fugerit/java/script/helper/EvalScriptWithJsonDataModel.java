@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * EvalScript decorator.
  *
- * The Map<String, Object> dataModel will be transformed into a json styled LinkedHashMap<String, Object>.
+ * The Map dataModel will be transformed into a json styled LinkedHashMap.
  */
 @Slf4j
 public class EvalScriptWithJsonDataModel implements EvalScript {
